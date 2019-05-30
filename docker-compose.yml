@@ -8,7 +8,21 @@ services:
     - KEYCLOAK_USER=admin
     - KEYCLOAK_PASSWORD=admin123
     - KEYCLOAK_IMPORT=/tmp/realm.json
-    - DB_VENDOR=h2
+    - DB_VENDOR=postgres
+    - DB_ADDR=keycloak-db
+    - DB_PORT=5432
+    - DB_USER=keycloak
+    - DB_PASSWORD=password
     volumes:
     - ./keycloak/realm.json:/tmp/realm.json
+
+  keycloak-db:
+    image: postgres
+    ports:
+    - "65432:5432"
+    environment:
+    - POSTGRES_DB=keycloak
+    - POSTGRES_USER=keycloak
+    - POSTGRES_PASSWORD=password
+  
     
